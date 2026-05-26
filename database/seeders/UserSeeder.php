@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         $pelanggan = Role::firstWhere('name', 'pelanggan');
 
         User::updateOrCreate(
-            ['email' => 'admin@apotek.com'],
+            ['email' => 'admin@gmail.com'],
             [
                 'role_id'  => $admin->id,
                 'name'     => 'Administrator',
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         );
 
         User::updateOrCreate(
-            ['email' => 'apoteker@apotek.com'],
+            ['email' => 'apoteker@gmail.com'],
             [
                 'role_id'  => $apoteker->id,
                 'name'     => 'Apoteker',
