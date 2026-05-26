@@ -1,47 +1,80 @@
 @extends('layouts.pelanggan')
 @section('title', 'Detail Obat')
-@section('page-title', 'Detail Obat')
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-4">
-                <div class="text-center mb-4">
-                    <i class="fa fa-pills fa-5x text-info opacity-25 mb-3"></i>
-                    <h4 class="fw-bold">{{ $product->name }}</h4>
-                    <span class="badge bg-info">{{ $product->category->name }}</span>
+<div class="row justify-content-center py-5">
+    <div class="col-lg-10">
+        <div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 24px;">
+            <div class="row g-0">
+                <div class="col-md-5 bg-light d-flex align-items-center justify-content-center p-5">
+                    <div class="text-center">
+                        <div class="bg-white rounded-circle shadow-sm d-inline-flex align-items-center justify-content-center mb-4" style="width: 150px; height: 150px;">
+                            <i class="fa fa-pills fa-5x" style="color: #10b981;"></i>
+                        </div>
+                        <h5 class="text-muted fw-bold small text-uppercase" style="letter-spacing: 0.1em;">{{ $product->category->name }}</h5>
+                    </div>
                 </div>
-                <hr>
-                <table class="table table-borderless">
-                    <tr>
-                        <td class="text-muted" style="width: 40%">Satuan</td>
-                        <td class="fw-semibold">: {{ $product->unit }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted">Harga</td>
-                        <td class="fw-bold text-info fs-5">: Rp {{ number_format($product->selling_price, 0, ',', '.') }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted">Ketersediaan</td>
-                        <td>: 
-                            @if($product->stock > 0)
-                                <span class="text-success fw-bold">Tersedia ({{ $product->stock }} {{ $product->unit }})</span>
-                            @else
-                                <span class="text-danger fw-bold">Stok Habis</span>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted">Kadaluarsa</td>
-                        <td>: {{ $product->expiry_date ? \Carbon\Carbon::parse($product->expiry_date)->format('d F Y') : '-' }}</td>
-                    </tr>
-                </table>
-                <hr>
-                <div class="text-center">
-                    <a href="{{ route('pelanggan.products.index') }}" class="btn btn-light px-4">Kembali ke Katalog</a>
+                <div class="col-md-7">
+                    <div class="card-body p-5">
+                        <nav aria-label="breadcrumb" class="mb-4">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('pelanggan.products.index') }}" class="text-decoration-none text-emerald" style="color: #10b981;">Katalog</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
+                            </ol>
+                        </nav>
+                        
+                        <h1 class="fw-bold text-dark mb-3">{{ $product->name }}</h1>
+                        
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="fs-2 fw-bold text-emerald" style="color: #10b981;">Rp {{ number_format($product->selling_price, 0, ',', '.') }}</div>
+                            <span class="badge {{ $product->stock > 0 ? 'bg-success' : 'bg-danger' }} bg-opacity-10 {{ $product->stock > 0 ? 'text-success' : 'text-danger' }} px-3 py-2 rounded-pill fw-bold">
+                                {{ $product->stock > 0 ? 'Stok Tersedia' : 'Stok Habis' }}
+                            </span>
+                        </div>
+                        
+                        <hr class="my-4 opacity-25">
+                        
+                        <div class="row g-4 mb-4">
+                            <div class="col-6">
+                                <label class="small text-muted fw-bold text-uppercase d-block mb-1">Satuan Produk</label>
+                                <div class="fw-bold text-dark">{{ $product->unit }}</div>
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-muted fw-bold text-uppercase d-block mb-1">Masa Berlaku</label>
+                                <div class="fw-bold text-dark">{{ $product->expiry_date ? \Carbon\Carbon::parse($product->expiry_date)->format('d F Y') : '-' }}</div>
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-muted fw-bold text-uppercase d-block mb-1">Jumlah Stok</label>
+                                <div class="fw-bold text-dark">{{ $product->stock }} {{ $product->unit }}</div>
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-muted fw-bold text-uppercase d-block mb-1">ID Produk</label>
+                                <div class="fw-bold text-dark">#PRD-{{ str_pad($product->id, 5, '0', STR_PAD_LEFT) }}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert bg-soft-emerald border-0 rounded-4 p-4 mb-5" style="background-color: #ecfdf5;">
+                            <div class="d-flex gap-3">
+                                <i class="fa fa-info-circle text-emerald fs-4" style="color: #10b981;"></i>
+                                <div class="text-dark small">
+                                    <strong>Informasi Pembelian:</strong> Silakan kunjungi apotek kami untuk melakukan pembelian atau hubungi kontak kami untuk pemesanan lebih lanjut.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-flex">
+                            <a href="{{ route('pelanggan.products.index') }}" class="btn btn-light px-4 py-3 fw-bold text-secondary border shadow-sm" style="border-radius: 14px;">
+                                <i class="fa fa-arrow-left me-2"></i> Kembali ke Katalog
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="mt-5">
+            <h5 class="fw-bold mb-4">Produk Lainnya</h5>
+            <!-- Produk terkait bisa ditambahkan di sini jika ada logicnya -->
         </div>
     </div>
 </div>
