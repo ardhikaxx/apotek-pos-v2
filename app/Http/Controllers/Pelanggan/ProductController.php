@@ -28,6 +28,13 @@ class ProductController extends Controller
         }
         
         $product->load('category');
-        return view('pelanggan.products.show', compact('product'));
+
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->where('is_active', true)
+            ->take(4)
+            ->get();
+
+        return view('pelanggan.products.show', compact('product', 'relatedProducts'));
     }
 }
