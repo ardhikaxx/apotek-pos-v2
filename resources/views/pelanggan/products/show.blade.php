@@ -74,7 +74,29 @@
         
         <div class="mt-5">
             <h5 class="fw-bold mb-4">Produk Lainnya</h5>
-            <!-- Produk terkait bisa ditambahkan di sini jika ada logicnya -->
+            <div class="row g-4">
+                @forelse($relatedProducts as $related)
+                <div class="col-6 col-md-3">
+                    <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; overflow: hidden;">
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 120px;">
+                            <i class="fa fa-pills fa-2x text-emerald opacity-25" style="color: #10b981;"></i>
+                        </div>
+                        <div class="card-body p-3 d-flex flex-column">
+                            <small class="text-muted text-uppercase fw-bold mb-1" style="font-size: 0.65rem;">{{ $related->category->name }}</small>
+                            <h6 class="fw-bold text-dark mb-2 text-truncate" title="{{ $related->name }}">{{ $related->name }}</h6>
+                            <div class="mt-auto">
+                                <div class="fw-bold text-emerald small mb-2" style="color: #10b981;">Rp {{ number_format($related->selling_price, 0, ',', '.') }}</div>
+                                <a href="{{ route('pelanggan.products.show', $related) }}" class="btn btn-sm btn-light w-100 fw-bold text-secondary" style="border-radius: 8px; font-size: 0.75rem;">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div class="col-12">
+                    <p class="text-muted small">Tidak ada produk terkait lainnya.</p>
+                </div>
+                @endforelse
+            </div>
         </div>
     </div>
 </div>
