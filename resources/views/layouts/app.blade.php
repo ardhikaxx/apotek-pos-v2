@@ -7,23 +7,51 @@
     <title>@yield('title', 'Apotek POS')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #f8f9fa; }
-        .sidebar { min-height: 100vh; background: #1e293b; width: 240px; position: fixed; top: 0; left: 0; z-index: 100; }
-        .sidebar .brand { padding: 1.2rem 1.5rem; border-bottom: 1px solid #334155; }
-        .sidebar .nav-link { color: #94a3b8; padding: .6rem 1.5rem; border-radius: 6px; margin: 2px 8px; }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active { background: #334155; color: #fff; }
-        .sidebar .nav-link i { width: 20px; }
-        .main-content { margin-left: 240px; padding: 1.5rem; }
-        .topbar { background: #fff; border-bottom: 1px solid #e2e8f0; padding: .75rem 1.5rem; margin: -1.5rem -1.5rem 1.5rem; }
-        .badge-stock { font-size: .7rem; }
+        :root {
+            --primary-emerald: #10b981;
+            --deep-emerald: #065f46;
+            --soft-emerald: #ecfdf5;
+        }
+        body { 
+            background: #f8fafc; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1e293b;
+        }
+        .sidebar { min-height: 100vh; background: #0f172a; width: 260px; position: fixed; top: 0; left: 0; z-index: 100; transition: all 0.3s; }
+        .sidebar .brand { padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 1rem; }
+        .sidebar .nav-link { color: #94a3b8; padding: 0.75rem 1.25rem; border-radius: 12px; margin: 4px 12px; font-weight: 500; transition: all 0.2s; }
+        .sidebar .nav-link:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .sidebar .nav-link.active { background: var(--primary-emerald); color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); }
+        .sidebar .nav-link i { width: 24px; font-size: 1.1rem; }
+        
+        .main-content { margin-left: 260px; padding: 2rem; transition: all 0.3s; }
+        .topbar { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 1rem 2rem; margin: -2rem -2rem 2rem; }
+        
+        .card { border: none; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); }
+        .card-header { background-color: transparent; border-bottom: 1px solid #f1f5f9; padding: 1.25rem 1.5rem; font-weight: 700; color: #334155; }
+        
+        .btn-primary { background-color: var(--primary-emerald); border-color: var(--primary-emerald); border-radius: 10px; padding: 0.5rem 1.25rem; font-weight: 600; }
+        .btn-primary:hover { background-color: var(--deep-emerald); border-color: var(--deep-emerald); }
+        
+        .form-label { font-weight: 600; font-size: 0.875rem; color: #475569; margin-bottom: 0.5rem; }
+        .form-control, .form-select { border-radius: 10px; padding: 0.625rem 1rem; border: 1px solid #e2e8f0; font-size: 0.95rem; }
+        .form-control:focus, .form-select:focus { border-color: var(--primary-emerald); box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); }
+        .input-group-text { background-color: #f8fafc; border-color: #e2e8f0; color: #64748b; border-radius: 10px; }
+        
+        .table thead th { background-color: #f8fafc; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; color: #64748b; border-top: none; padding: 1rem 1.5rem; }
+        .table tbody td { padding: 1rem 1.5rem; vertical-align: middle; color: #475569; border-bottom-color: #f1f5f9; }
+        
+        .badge { padding: 0.5em 0.8em; border-radius: 6px; font-weight: 600; }
+        .badge-emerald { background-color: var(--soft-emerald); color: var(--deep-emerald); }
     </style>
     @stack('styles')
 </head>
 <body>
     <div class="sidebar d-flex flex-column">
         <div class="brand text-white fw-bold fs-5">
-            <i class="fa fa-clinic-medical me-2 text-info"></i>Apotek POS
+            <i class="fa fa-clinic-medical me-2" style="color: #10b981;"></i>Apotek POS
         </div>
         <nav class="nav flex-column mt-2 grow">
             @if(auth()->user()->role->name === 'admin')
@@ -78,7 +106,7 @@
         </nav>
         <div class="p-3 border-top border-secondary">
             <small class="text-muted d-block mb-1">{{ auth()->user()->name }}</small>
-            <small class="badge bg-info text-uppercase">{{ auth()->user()->role->name }}</small>
+            <small class="badge text-uppercase" style="background-color: #10b981;">{{ auth()->user()->role->name }}</small>
             <form method="POST" action="{{ route('logout') }}" class="mt-2">
                 @csrf
                 <button class="btn btn-sm btn-outline-danger w-100">
