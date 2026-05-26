@@ -1,79 +1,162 @@
 @extends('layouts.app')
 @section('title', 'POS Kasir')
-@section('page-title', 'POS / Kasir')
+@section('page-title', 'Point of Sale (Kasir)')
 
 @push('styles')
 <style>
-    .product-item { cursor: pointer; }
-    .product-item:hover { background: #f0f9ff; }
-    #search-results { max-height: 400px; overflow-y: auto; }
+    #cart-table td { vertical-align: middle; border-bottom: 1px solid #f1f5f9; }
+    .product-item { 
+        cursor: pointer; 
+        border: 1px solid #f1f5f9; 
+        border-radius: 12px; 
+        padding: 1rem; 
+        transition: all 0.2s; 
+        background: #fff;
+    }
+    .product-item:hover { 
+        border-color: #10b981; 
+        background: #ecfdf5; 
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    #search-results { 
+        max-height: 550px; 
+        overflow-y: auto; 
+        padding: 0.5rem;
+    }
+    #search-results::-webkit-scrollbar { width: 6px; }
+    #search-results::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+    
+    .cart-item-name { font-weight: 600; color: #1e293b; font-size: 0.875rem; }
+    .cart-item-price { color: #64748b; font-size: 0.75rem; }
+    
+    .checkout-box {
+        background: #f8fafc;
+        border-radius: 16px;
+        padding: 1.5rem;
+    }
+    
+    .qty-input {
+        width: 60px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+        font-weight: 600;
+    }
 </style>
 @endpush
 
 @section('content')
-<div class="row g-3">
-    <div class="col-md-7">
+<div class="row g-4">
+    <!-- Pencarian Produk -->
+    <div class="col-lg-7">
         <div class="card border-0 shadow-sm h-100">
-            <div class="card-header bg-white fw-semibold"><i class="fa fa-search me-2 text-info"></i>Cari Produk</div>
-            <div class="card-body">
-                <input type="text" id="search-input" class="form-control mb-3" placeholder="Ketik nama obat...">
-                <div id="search-results"></div>
+            <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="bg-soft-emerald p-2 rounded-3 me-3" style="background-color: #ecfdf5;">
+                        <i class="fa fa-search text-emerald" style="color: #10b981;"></i>
+                    </div>
+                    <h5 class="mb-0 fw-bold">Cari Produk</h5>
+                </div>
+            </div>
+            <div class="card-body p-4">
+                <div class="input-group mb-4 shadow-sm" style="border-radius: 12px; overflow: hidden;">
+                    <span class="input-group-text border-0 bg-white ps-3"><i class="fa fa-search text-muted"></i></span>
+                    <input type="text" id="search-input" class="form-control border-0 py-3" placeholder="Ketik nama obat atau kategori...">
+                </div>
+                <div id="search-results" class="row g-3">
+                    <!-- Produk muncul di sini via JS -->
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-5">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white fw-semibold"><i class="fa fa-shopping-cart me-2 text-success"></i>Keranjang</div>
-            <div class="card-body p-0">
-                <div class="p-3 border-bottom">
-                    <label class="form-label small fw-semibold">Pilih Pelanggan (Opsional)</label>
-                    <select id="customer-id" class="form-select form-select-sm">
-                        <option value="">-- Umum / Tanpa Nama --</option>
-                        @foreach($customers as $customer)
-                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                        @endforeach
-                    </select>
+
+    <!-- Keranjang -->
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white py-3">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 p-2 rounded-3 me-3">
+                        <i class="fa fa-shopping-cart text-primary"></i>
+                    </div>
+                    <h5 class="mb-0 fw-bold">Ringkasan Pesanan</h5>
                 </div>
-                <table class="table table-sm mb-0" id="cart-table">
-                    <thead class="table-light">
-                        <tr><th>Produk</th><th>Qty</th><th>Subtotal</th><th></th></tr>
-                    </thead>
-                    <tbody id="cart-body">
-                        <tr id="empty-row"><td colspan="4" class="text-center text-muted py-3">Keranjang kosong</td></tr>
-                    </tbody>
-                </table>
             </div>
-            <div class="card-footer bg-white">
-                <div class="d-flex justify-content-between fw-bold mb-2">
-                    <span>Total:</span><span id="total-display">Rp 0</span>
+            <div class="card-body p-0 d-flex flex-column">
+                <div class="p-4 border-bottom bg-light bg-opacity-50">
+                    <label class="form-label small fw-bold text-secondary text-uppercase mb-2">Pelanggan</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="fa fa-user text-muted"></i></span>
+                        <select id="customer-id" class="form-select border-start-0">
+                            <option value="">-- Umum / Tanpa Nama --</option>
+                            @foreach($customers as $customer)
+                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="mb-2">
-                    <label class="form-label">Nominal Bayar</label>
-                    <input type="number" id="paid-input" class="form-control" min="0" placeholder="0">
+                
+                <div class="flex-grow-1 overflow-auto" style="max-height: 350px;">
+                    <table class="table mb-0" id="cart-table">
+                        <tbody id="cart-body">
+                            <tr id="empty-row">
+                                <td class="text-center py-5">
+                                    <div class="mb-3 opacity-25"><i class="fa fa-shopping-basket fa-3x"></i></div>
+                                    <p class="text-muted small mb-0">Keranjang masih kosong</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="d-flex justify-content-between text-success fw-semibold mb-3">
-                    <span>Kembalian:</span><span id="change-display">Rp 0</span>
+
+                <div class="p-4 bg-white border-top mt-auto">
+                    <div class="checkout-box">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">Total Pembayaran</span>
+                            <span id="total-display" class="fs-3 fw-bold text-emerald" style="color: #10b981;">Rp 0</span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-secondary text-uppercase">Nominal Bayar</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 fw-bold">Rp</span>
+                                <input type="number" id="paid-input" class="form-control border-start-0 ps-0 fw-bold fs-5" min="0" placeholder="0">
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-4 p-2 rounded-3 bg-white border border-dashed">
+                            <span class="small text-muted">Kembalian</span>
+                            <span id="change-display" class="fw-bold text-dark">Rp 0</span>
+                        </div>
+                        
+                        <button id="btn-checkout" class="btn btn-primary w-100 py-3 shadow-emerald border-0" disabled style="background-color: #10b981; border-radius: 12px; font-weight: 700;">
+                            <i class="fa fa-check-circle me-2"></i> SELESAI & CETAK STRUK
+                        </button>
+                    </div>
                 </div>
-                <button id="btn-checkout" class="btn btn-success w-100" disabled>
-                    <i class="fa fa-check-circle me-2"></i>Proses Transaksi
-                </button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modal Sukses -->
 <div class="modal fade" id="successModal" tabindex="-1" data-bs-backdrop="static">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content text-center">
-            <div class="modal-body py-4">
-                <i class="fa fa-check-circle fa-3x text-success mb-3"></i>
-                <h6 class="fw-bold">Transaksi Berhasil!</h6>
-                <p class="text-muted small" id="invoice-display"></p>
-                <div class="d-flex gap-2 justify-content-center mt-3">
-                    <a id="btn-print" href="#" target="_blank" class="btn btn-sm btn-outline-secondary">
-                        <i class="fa fa-print me-1"></i>Cetak Struk
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 24px;">
+            <div class="modal-body py-5 text-center">
+                <div class="bg-soft-emerald d-inline-flex p-4 rounded-circle mb-4" style="background-color: #ecfdf5;">
+                    <i class="fa fa-check-circle fa-4x" style="color: #10b981;"></i>
+                </div>
+                <h4 class="fw-bold mb-2">Transaksi Berhasil!</h4>
+                <p class="text-muted small mb-4" id="invoice-display"></p>
+                
+                <div class="d-grid gap-2">
+                    <a id="btn-print" href="#" target="_blank" class="btn btn-primary py-2 border-0" style="background-color: #10b981; border-radius: 10px;">
+                        <i class="fa fa-print me-2"></i> Cetak Struk
                     </a>
-                    <button class="btn btn-sm btn-success" onclick="resetPos()">Transaksi Baru</button>
+                    <button class="btn btn-light py-2" onclick="resetPos()" style="border-radius: 10px;">
+                        Transaksi Baru
+                    </button>
                 </div>
             </div>
         </div>
@@ -85,45 +168,45 @@
 <script>
 let cart = [];
 let searchTimeout;
+
 const formatRp = n => 'Rp ' + parseInt(n).toLocaleString('id-ID');
 
-// Function to fetch and display products
 function fetchProducts(q = '') {
     const el = document.getElementById('search-results');
-    el.innerHTML = '<div class="text-center py-3"><div class="spinner-border spinner-border-sm text-info"></div></div>';
+    el.innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-emerald" style="color:#10b981"></div></div>';
     
-    fetch(`{{ route('apoteker.pos.search') }}?q=${encodeURIComponent(q)}`)
+    fetch(`{{ route('apoteker.pos.search') }}?q=${encodeURIComponent(q)}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
     .then(r => r.json())
     .then(data => {
         if (!data.length) { 
-            el.innerHTML = '<p class="text-muted small">Produk tidak ditemukan.</p>'; 
+            el.innerHTML = '<div class="col-12 text-center py-5"><p class="text-muted">Produk tidak ditemukan.</p></div>'; 
             return; 
         }
-        el.innerHTML = '<div class="list-group">' + data.map(p =>
-            `<button type="button" class="list-group-item list-group-item-action product-item d-flex justify-content-between" onclick="addToCart(${p.id},'${p.name.replace(/'/g,"\\'")}',${p.selling_price},${p.stock},'${p.unit}')">
-                <span>${p.name} <small class="text-muted">(${p.unit})</small></span>
-                <span class="text-info fw-semibold">${formatRp(p.selling_price)} <small class="text-muted">stok: ${p.stock}</small></span>
-            </button>`
-        ).join('') + '</div>';
+        el.innerHTML = data.map(p =>
+            `<div class="col-md-6 col-xl-4">
+                <div class="product-item" onclick="addToCart(${p.id},'${p.name.replace(/'/g,"\\'")}',${p.selling_price},${p.stock},'${p.unit}')">
+                    <div class="fw-bold text-dark mb-1 text-truncate">${p.name}</div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-emerald fw-bold small" style="color:#059669">${formatRp(p.selling_price)}</span>
+                        <span class="badge ${p.stock <= 5 ? 'bg-danger' : 'bg-light text-muted'} small" style="font-size: 0.65rem;">Stok: ${p.stock}</span>
+                    </div>
+                </div>
+            </div>`
+        ).join('');
     })
     .catch(err => {
-        console.error('Error fetching products:', err);
-        el.innerHTML = '<p class="text-danger small">Gagal memuat produk. Coba lagi.</p>';
+        el.innerHTML = '<div class="col-12 text-center py-5"><p class="text-danger">Gagal memuat produk.</p></div>';
     });
 }
 
-// Initial fetch on page load
-document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts();
-});
+document.addEventListener('DOMContentLoaded', () => fetchProducts());
 
 document.getElementById('search-input').addEventListener('input', function () {
     clearTimeout(searchTimeout);
     const q = this.value.trim();
-    
-    searchTimeout = setTimeout(() => {
-        fetchProducts(q);
-    }, 300);
+    searchTimeout = setTimeout(() => fetchProducts(q), 300);
 });
 
 function addToCart(id, name, price, stock, unit) {
@@ -133,6 +216,7 @@ function addToCart(id, name, price, stock, unit) {
         existing.qty++;
         existing.subtotal = existing.qty * price;
     } else {
+        if (stock < 1) { alert('Stok habis!'); return; }
         cart.push({ id, name, price, stock, unit, qty: 1, subtotal: price });
     }
     renderCart();
@@ -142,7 +226,7 @@ function updateQty(id, qty) {
     const item = cart.find(i => i.id === id);
     if (!item) return;
     qty = parseInt(qty);
-    if (qty < 1) { removeItem(id); return; }
+    if (isNaN(qty) || qty < 1) { removeItem(id); return; }
     if (qty > item.stock) { alert('Stok tidak mencukupi!'); return; }
     item.qty = qty;
     item.subtotal = qty * item.price;
@@ -157,15 +241,25 @@ function removeItem(id) {
 function renderCart() {
     const tbody = document.getElementById('cart-body');
     if (!cart.length) {
-        tbody.innerHTML = '<tr id="empty-row"><td colspan="4" class="text-center text-muted py-3">Keranjang kosong</td></tr>';
-        updateTotal(); return;
+        tbody.innerHTML = '<tr id="empty-row"><td class="text-center py-5"><div class="mb-3 opacity-25"><i class="fa fa-shopping-basket fa-3x"></i></div><p class="text-muted small mb-0">Keranjang masih kosong</p></td></tr>';
+        updateTotal();
+        return;
     }
     tbody.innerHTML = cart.map(item =>
-        `<tr>
-            <td><small>${item.name}</small></td>
-            <td style="width:80px"><input type="number" class="form-control form-control-sm" value="${item.qty}" min="1" max="${item.stock}" onchange="updateQty(${item.id}, this.value)"></td>
-            <td><small>${formatRp(item.subtotal)}</small></td>
-            <td><button class="btn btn-sm btn-outline-danger" onclick="removeItem(${item.id})"><i class="fa fa-times"></i></button></td>
+        `<tr class="px-4">
+            <td class="ps-4">
+                <div class="cart-item-name text-truncate" style="max-width: 180px;">${item.name}</div>
+                <div class="cart-item-price">${formatRp(item.price)} / ${item.unit}</div>
+            </td>
+            <td>
+                <input type="number" class="qty-input" value="${item.qty}" min="1" max="${item.stock}" onchange="updateQty(${item.id}, this.value)">
+            </td>
+            <td class="text-end fw-bold text-dark">
+                ${formatRp(item.subtotal)}
+            </td>
+            <td class="pe-4 text-end">
+                <button class="btn btn-sm btn-light text-danger border-0" onclick="removeItem(${item.id})"><i class="fa fa-trash-alt"></i></button>
+            </td>
         </tr>`
     ).join('');
     updateTotal();
@@ -187,6 +281,9 @@ document.getElementById('btn-checkout').addEventListener('click', function () {
     const customerId = document.getElementById('customer-id').value;
     const items = cart.map(i => ({ id: i.id, qty: i.qty }));
 
+    this.disabled = true;
+    this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> PROSES...';
+
     fetch('{{ route('apoteker.pos.store') }}', {
         method: 'POST',
         headers: {
@@ -201,9 +298,17 @@ document.getElementById('btn-checkout').addEventListener('click', function () {
             document.getElementById('invoice-display').textContent = 'ID Transaksi: #' + data.transaction_id;
             document.getElementById('btn-print').href = `/apoteker/pos/${data.transaction_id}/pdf`;
             new bootstrap.Modal(document.getElementById('successModal')).show();
+        } else {
+            alert(data.message || 'Transaksi gagal.');
+            this.disabled = false;
+            this.innerHTML = '<i class="fa fa-check-circle me-2"></i> SELESAI & CETAK STRUK';
         }
     })
-    .catch(() => alert('Terjadi kesalahan, coba lagi.'));
+    .catch(() => {
+        alert('Terjadi kesalahan jaringan.');
+        this.disabled = false;
+        this.innerHTML = '<i class="fa fa-check-circle me-2"></i> SELESAI & CETAK STRUK';
+    });
 });
 
 function resetPos() {
@@ -211,8 +316,11 @@ function resetPos() {
     renderCart();
     document.getElementById('paid-input').value = '';
     document.getElementById('search-input').value = '';
-    document.getElementById('search-results').innerHTML = '';
-    bootstrap.Modal.getInstance(document.getElementById('successModal')).hide();
+    fetchProducts();
+    const modal = bootstrap.Modal.getInstance(document.getElementById('successModal'));
+    if (modal) modal.hide();
+    
+    document.getElementById('btn-checkout').innerHTML = '<i class="fa fa-check-circle me-2"></i> SELESAI & CETAK STRUK';
 }
 </script>
 @endpush
