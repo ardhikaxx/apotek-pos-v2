@@ -58,7 +58,7 @@
                     </select>
                 </div>
             </div>
-            <div class="d-flex gap-2 mt-3">
+            <div class="d-flex gap-2 mt-3 flex-wrap">
                 <button type="submit" class="btn btn-warning"><i class="fa fa-save me-1"></i> Update</button>
                 <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Batal</a>
             </div>
