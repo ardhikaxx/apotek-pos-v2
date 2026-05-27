@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="card border-0 shadow-sm">
-    <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center flex-wrap gap-2 py-3">
         <div class="d-flex align-items-center">
             <div class="bg-soft-emerald p-2 rounded-3 me-3" style="background-color: #ecfdf5;">
                 <i class="fa fa-pills text-emerald" style="color: #10b981;"></i>
