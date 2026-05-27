@@ -51,7 +51,7 @@
     <!-- Pencarian Produk -->
     <div class="col-lg-7">
         <div class="card border-0 shadow-sm h-100">
-            <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between">
+            <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
                 <div class="d-flex align-items-center">
                     <div class="bg-soft-emerald p-2 rounded-3 me-3" style="background-color: #ecfdf5;">
                         <i class="fa fa-search text-emerald" style="color: #10b981;"></i>
@@ -97,16 +97,18 @@
                 </div>
                 
                 <div class="grow overflow-auto" style="max-height: 350px;">
-                    <table class="table mb-0" id="cart-table">
-                        <tbody id="cart-body">
-                            <tr id="empty-row">
-                                <td class="text-center py-5">
-                                    <div class="mb-3 opacity-25"><i class="fa fa-shopping-basket fa-3x"></i></div>
-                                    <p class="text-muted small mb-0">Keranjang masih kosong</p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table mb-0" id="cart-table">
+                            <tbody id="cart-body">
+                                <tr id="empty-row">
+                                    <td class="text-center py-5">
+                                        <div class="mb-3 opacity-25"><i class="fa fa-shopping-basket fa-3x"></i></div>
+                                        <p class="text-muted small mb-0">Keranjang masih kosong</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="p-4 bg-white border-top mt-auto">
