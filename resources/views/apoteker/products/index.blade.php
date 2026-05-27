@@ -15,7 +15,7 @@
                             <input type="text" name="search" class="form-control border-0 py-2" placeholder="Masukkan nama obat yang dicari..." value="{{ request('search') }}">
                         </div>
                     </div>
-                    <div class="col-md-6 d-flex gap-2 justify-content-md-end">
+                    <div class="col-md-6 d-flex gap-2 justify-content-md-end flex-wrap">
                         <button type="submit" class="btn btn-emerald text-white px-4 border-0" style="background-color: #10b981; border-radius: 10px;">
                             Cari
                         </button>
