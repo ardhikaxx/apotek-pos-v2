@@ -25,12 +25,13 @@
             width: 45%;
             padding: 4rem;
             display: flex;
-            flex-column;
+            flex-direction: column;
             justify-content: center;
         }
         .auth-side-form {
             width: 55%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 4rem;
@@ -167,6 +168,10 @@
             </div>
         </div>
         <div class="auth-side-form">
+            <div class="brand-logo d-lg-none text-dark mb-4">
+                <i class="fa fa-clinic-medical"></i>
+                <span>Apotek POS</span>
+            </div>
             @yield('content')
         </div>
     </div>
