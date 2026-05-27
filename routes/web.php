@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Apoteker;
 
@@ -12,6 +13,12 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/register', [LoginController::class, 'showRegister'])->name('register');
 Route::post('/register', [LoginController::class, 'register']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Forgot Password
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showVerifyEmail'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'verifyEmail']);
+Route::get('/reset-password', [ForgotPasswordController::class, 'showResetPassword'])->name('password.reset');
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
 
 // Admin Routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
