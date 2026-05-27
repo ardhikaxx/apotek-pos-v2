@@ -24,6 +24,16 @@
         outline: none;
         font-size: 1rem;
         border-radius: 12px;
+        min-width: 0; /* Ensures input can shrink below its default size */
+    }
+    @media (max-width: 576px) {
+        .search-input-group input {
+            padding: 10px 15px;
+            font-size: 0.9rem;
+        }
+        .search-input-group {
+            padding: 6px;
+        }
     }
     .search-input-group button {
         background-color: #10b981;
@@ -33,6 +43,7 @@
         border-radius: 12px;
         font-weight: 700;
         transition: all 0.2s;
+        white-space: nowrap;
     }
     .search-input-group button:hover {
         background-color: #059669;
@@ -100,17 +111,17 @@
         <div class="search-input-group">
             <input type="text" name="search" placeholder="Cari obat, vitamin, atau alat kesehatan..." value="{{ request('search') }}">
             <button type="submit" class="d-none d-md-block">Cari Sekarang</button>
-            <button type="submit" class="d-md-none"><i class="fa fa-search"></i></button>
+            <button type="submit" class="d-md-none px-3"><i class="fa fa-search"></i></button>
         </div>
     </form>
 </div>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
     <h4 class="fw-bold mb-0">Semua Produk</h4>
     <div class="text-muted small">Menampilkan {{ $products->count() }} produk</div>
 </div>
 
-<div class="row g-4 mb-5">
+<div class="row g-3 g-md-4 mb-5">
     @foreach($products as $product)
     <div class="col-6 col-md-4 col-lg-3">
         <div class="product-card shadow-sm h-100 d-flex flex-column">
@@ -120,7 +131,7 @@
                     {{ $product->stock > 0 ? 'Tersedia' : 'Habis' }}
                 </span>
             </div>
-            <div class="card-body p-4 d-flex flex-column">
+            <div class="card-body p-3 p-md-4 d-flex flex-column">
                 <div class="mb-1 text-muted small text-uppercase fw-bold" style="letter-spacing: 0.05em;">{{ $product->category->name }}</div>
                 <h5 class="fw-bold text-dark mb-3 text-truncate-2" style="height: 3rem; line-height: 1.5; overflow: hidden;">{{ $product->name }}</h5>
                 
