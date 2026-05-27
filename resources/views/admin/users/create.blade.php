@@ -36,7 +36,7 @@
                 <label class="form-label">Konfirmasi Password</label>
                 <input type="password" name="password_confirmation" class="form-control" required>
             </div>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 flex-wrap">
                 <button type="submit" class="btn btn-info text-white"><i class="fa fa-save me-1"></i> Simpan</button>
                 <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Batal</a>
             </div>
