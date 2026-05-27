@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row g-4 mb-5">
-    <div class="col-md-4">
+    <div class="col-sm-6 col-xl-4">
         <div class="card border-0 shadow-sm h-100">
             <div class="card-body p-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-sm-6 col-xl-4">
         <div class="card border-0 shadow-sm h-100">
             <div class="card-body p-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-sm-6 col-xl-4">
         <div class="card border-0 shadow-sm h-100">
             <div class="card-body p-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -51,7 +51,7 @@
 <div class="row g-4">
     <div class="col-lg-8">
         <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white d-flex align-items-center justify-content-between">
+            <div class="card-header bg-white d-flex align-items-center justify-content-between flex-wrap gap-2">
                 <span class="fs-5">Transaksi Anda Hari Ini</span>
                 <a href="{{ route('apoteker.reports') }}" class="btn btn-sm btn-link text-emerald fw-bold text-decoration-none" style="color: #10b981;">Lihat Laporan</a>
             </div>
