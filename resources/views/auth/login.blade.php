@@ -38,6 +38,7 @@
                 <input type="checkbox" name="remember" class="form-check-input" id="remember">
                 <label class="form-check-label small text-secondary" for="remember">Ingat saya</label>
             </div>
+            <a href="{{ route('password.request') }}" class="small text-decoration-none fw-bold" style="color: #10b981;">Lupa Password?</a>
         </div>
         <button type="submit" class="btn btn-primary shadow-sm mb-4">
             Masuk Sekarang
