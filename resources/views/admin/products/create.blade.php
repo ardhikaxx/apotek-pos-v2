@@ -3,7 +3,7 @@
 @section('page-title', 'Tambah Produk Baru')
 
 @section('content')
-<div class="row">
+<div class="row g-4">
     <div class="col-lg-8">
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-white py-3">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     
-                    <div class="d-flex gap-2 mt-5">
+                    <div class="d-flex gap-2 mt-5 flex-wrap">
                         <button type="submit" class="btn btn-primary px-4 border-0" style="background-color: #10b981;">
                             <i class="fa fa-save me-2"></i> Simpan Produk
                         </button>
