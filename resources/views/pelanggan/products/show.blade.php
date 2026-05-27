@@ -6,7 +6,7 @@
     <div class="col-lg-10">
         <div class="card border-0 shadow-sm overflow-hidden" style="border-radius: 24px;">
             <div class="row g-0">
-                <div class="col-md-5 bg-light d-flex align-items-center justify-content-center p-5">
+                <div class="col-md-5 bg-light d-flex align-items-center justify-content-center p-3 p-md-5">
                     <div class="text-center">
                         <div class="bg-white rounded-circle shadow-sm d-inline-flex align-items-center justify-content-center mb-4" style="width: 150px; height: 150px;">
                             <i class="fa fa-pills fa-5x" style="color: #10b981;"></i>
@@ -15,9 +15,9 @@
                     </div>
                 </div>
                 <div class="col-md-7">
-                    <div class="card-body p-5">
+                    <div class="card-body p-3 p-md-5">
                         <nav aria-label="breadcrumb" class="mb-4">
-                            <ol class="breadcrumb">
+                            <ol class="breadcrumb flex-wrap">
                                 <li class="breadcrumb-item"><a href="{{ route('pelanggan.products.index') }}" class="text-decoration-none text-emerald" style="color: #10b981;">Katalog</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
                             </ol>
@@ -25,7 +25,7 @@
                         
                         <h1 class="fw-bold text-dark mb-3">{{ $product->name }}</h1>
                         
-                        <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="d-flex align-items-center flex-wrap gap-3 mb-4">
                             <div class="fs-2 fw-bold text-emerald" style="color: #10b981;">Rp {{ number_format($product->selling_price, 0, ',', '.') }}</div>
                             <span class="badge {{ $product->stock > 0 ? 'bg-success' : 'bg-danger' }} bg-opacity-10 {{ $product->stock > 0 ? 'text-success' : 'text-danger' }} px-3 py-2 rounded-pill fw-bold">
                                 {{ $product->stock > 0 ? 'Stok Tersedia' : 'Stok Habis' }}
@@ -34,7 +34,7 @@
                         
                         <hr class="my-4 opacity-25">
                         
-                        <div class="row g-4 mb-4">
+                        <div class="row g-3 g-md-4 mb-4">
                             <div class="col-6">
                                 <label class="small text-muted fw-bold text-uppercase d-block mb-1">Satuan Produk</label>
                                 <div class="fw-bold text-dark">{{ $product->unit }}</div>
@@ -74,7 +74,7 @@
         
         <div class="mt-5">
             <h5 class="fw-bold mb-4">Produk Lainnya</h5>
-            <div class="row g-4">
+            <div class="row g-3 g-md-4">
                 @forelse($relatedProducts as $related)
                 <div class="col-6 col-md-3">
                     <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; overflow: hidden;">
