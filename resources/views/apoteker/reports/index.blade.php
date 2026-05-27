@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="col-md-6 d-flex align-items-end justify-content-md-end">
-        <a href="{{ route('apoteker.reports.pdf') }}" class="btn btn-light border px-4 py-2 fw-bold text-secondary shadow-sm" target="_blank" style="border-radius: 12px;">
+        <a href="{{ route('apoteker.reports.pdf') }}" class="btn btn-light border px-4 py-2 fw-bold text-secondary shadow-sm w-100 w-md-auto" target="_blank" style="border-radius: 12px;">
             <i class="fa fa-file-pdf me-2 text-danger"></i> EXPORT LAPORAN (PDF)
         </a>
     </div>
