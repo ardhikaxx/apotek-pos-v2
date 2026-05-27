@@ -11,8 +11,13 @@
     <style>
         :root { --primary-color: #10b981; }
         body { background-color: #f8fafc; font-family: 'Inter', sans-serif; color: #1e293b; }
-        .navbar-brand { fw-bold; color: var(--primary-color) !important; }
+        .navbar-brand { font-weight: 700; color: var(--primary-color) !important; }
         .hero-section { background-color: #1e293b; color: white; padding: 60px 0; margin-bottom: 40px; border-bottom: 4px solid var(--primary-color); }
+        @media (max-width: 768px) {
+            .hero-section { padding: 40px 0; }
+            .hero-section h1 { font-size: 2.25rem; }
+            .hero-section p { font-size: 1rem; }
+        }
         .footer { background: #1e293b; color: white; padding: 40px 0; margin-top: 60px; }
         .btn-primary-custom { background-color: var(--primary-color); border: none; color: white; border-radius: 8px; font-weight: 500; }
         .btn-primary-custom:hover { background-color: #059669; color: white; }
@@ -30,14 +35,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link fw-medium" href="{{ route('pelanggan.products.index') }}">Katalog Obat</a>
                     </li>
                 </ul>
-                <div class="d-flex align-items-center gap-3">
+                <div class="d-flex flex-wrap align-items-center gap-2 gap-md-3 mt-3 mt-lg-0">
                     @auth
-                        <span class="text-muted small">Halo, <strong>{{ auth()->user()->name }}</strong></span>
+                        <span class="text-muted small w-100 w-lg-auto mb-2 mb-lg-0">Halo, <strong>{{ auth()->user()->name }}</strong></span>
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
                             <button class="btn btn-outline-danger btn-sm rounded-pill px-3">Logout</button>
