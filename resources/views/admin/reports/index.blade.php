@@ -16,7 +16,7 @@
                         <label class="form-label small fw-bold text-uppercase text-muted">Sampai Tanggal</label>
                         <input type="date" name="end_date" class="form-control" value="{{ request('end_date') }}">
                     </div>
-                    <div class="col-md-6 d-flex gap-2">
+                    <div class="col-md-6 d-flex gap-2 flex-wrap">
                         <button type="submit" class="btn btn-primary px-4 border-0" style="background-color: #10b981;">
                             <i class="fa fa-filter me-2"></i> Tampilkan Laporan
                         </button>
@@ -34,7 +34,7 @@
 </div>
 
 <div class="row g-4 mb-4">
-    <div class="col-md-4">
+    <div class="col-sm-6 col-md-4">
         <div class="card border-0 shadow-sm bg-emerald" style="background-color: #10b981;">
             <div class="card-body p-4 text-white">
                 <div class="small opacity-75 mb-1">Total Pendapatan</div>
@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-sm-6 col-md-4">
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4 text-dark">
                 <div class="small text-muted mb-1">Total Transaksi</div>
