@@ -28,7 +28,7 @@
                         @error('address') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
                     <hr>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between flex-wrap gap-2">
                         <a href="{{ route('admin.suppliers.index') }}" class="btn btn-light">Batal</a>
                         <button type="submit" class="btn btn-warning">Perbarui Supplier</button>
                     </div>
