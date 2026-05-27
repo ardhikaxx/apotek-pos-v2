@@ -5,7 +5,7 @@
 @section('content')
 <form action="{{ route('admin.purchases.store') }}" method="POST">
     @csrf
-    <div class="row">
+    <div class="row g-4">
         <div class="col-md-4">
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-header bg-white py-3">
@@ -35,20 +35,21 @@
         </div>
         <div class="col-md-8">
             <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <h6 class="mb-0 fw-bold text-info">Detail Produk</h6>
                     <button type="button" id="add-item" class="btn btn-sm btn-outline-info"><i class="fa fa-plus me-1"></i>Tambah Produk</button>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table mb-0" id="purchase-table">
-                        <thead class="table-light">
-                            <tr>
-                                <th style="width: 40%">Produk</th>
-                                <th style="width: 20%">Jumlah</th>
-                                <th style="width: 30%">Harga Beli Satuan</th>
-                                <th style="width: 10%"></th>
-                            </tr>
-                        </thead>
+                    <div class="table-responsive">
+                        <table class="table mb-0" id="purchase-table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width: 40%">Produk</th>
+                                    <th style="width: 20%">Jumlah</th>
+                                    <th style="width: 30%">Harga Beli Satuan</th>
+                                    <th style="width: 10%"></th>
+                                </tr>
+                            </thead>
                         <tbody id="purchase-items">
                             <tr>
                                 <td>
