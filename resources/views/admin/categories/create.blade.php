@@ -15,7 +15,7 @@
                 <label class="form-label">Nama Kategori</label>
                 <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
             </div>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 flex-wrap">
                 <button type="submit" class="btn btn-info text-white"><i class="fa fa-save me-1"></i> Simpan</button>
                 <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Batal</a>
             </div>
