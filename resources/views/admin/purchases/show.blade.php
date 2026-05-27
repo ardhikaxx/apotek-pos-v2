@@ -29,28 +29,30 @@
                 <h6 class="mb-0 fw-bold text-info">Daftar Item</h6>
             </div>
             <div class="card-body p-0">
-                <table class="table mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Produk</th>
-                            <th class="text-center">Jumlah</th>
-                            <th class="text-end">Harga Beli</th>
-                            <th class="text-end">Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($purchase->items as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->product->name }} ({{ $item->product->unit }})</td>
-                            <td class="text-center">{{ $item->quantity }}</td>
-                            <td class="text-end">Rp {{ number_format($item->purchase_price, 0, ',', '.') }}</td>
-                            <td class="text-end">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Produk</th>
+                                <th class="text-center">Jumlah</th>
+                                <th class="text-end">Harga Beli</th>
+                                <th class="text-end">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($purchase->items as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->product->name }} ({{ $item->product->unit }})</td>
+                                <td class="text-center">{{ $item->quantity }}</td>
+                                <td class="text-end">Rp {{ number_format($item->purchase_price, 0, ',', '.') }}</td>
+                                <td class="text-end">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
