@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     
-                    <div class="d-flex gap-2 mt-5">
+                    <div class="d-flex gap-2 mt-5 flex-wrap">
                         <button type="submit" class="btn btn-primary px-4 border-0" style="background-color: #10b981;">
                             <i class="fa fa-save me-2"></i> Simpan Obat
                         </button>
