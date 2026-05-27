@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     
-                    <div class="d-flex gap-2 mt-5">
+                    <div class="d-flex gap-2 mt-5 flex-wrap">
                         <button type="submit" class="btn btn-warning px-4 fw-bold text-dark border-0">
                             <i class="fa fa-save me-2"></i> Update Data Obat
                         </button>
