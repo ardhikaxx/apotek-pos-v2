@@ -113,4 +113,17 @@ class TransactionController extends Controller
         $pdf = Pdf::loadView('admin.transactions.pdf', compact('transaction'))->setPaper([0, 0, 226.77, 600], 'portrait');
         return $pdf->stream('struk-' . $transaction->invoice_number . '.pdf');
     }
+
+    public function destroy(Transaction $transaction)
+    {
+        DB::transaction(function () use ($transaction) {
+            foreach ($transaction->items as $item) {
+                $item->product()->increment('stock', $item->qty);
+            }
+            $transaction->items()->delete();
+            $transaction->delete();
+        });
+
+        return redirect()->back()->with('success', 'Transaksi berhasil dihapus dan stok dikembalikan.');
+    }
 }
