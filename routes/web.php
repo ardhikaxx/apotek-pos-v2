@@ -35,7 +35,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::get('transactions/search-product', [Admin\TransactionController::class, 'searchProduct'])->name('transactions.search');
     Route::get('transactions/{transaction}/pdf', [Admin\TransactionController::class, 'printPdf'])->name('transactions.pdf');
-    Route::resource('transactions', Admin\TransactionController::class)->only(['index','create','store','show']);
+    Route::resource('transactions', Admin\TransactionController::class)->only(['index','create','store','show','destroy']);
 
     Route::get('reports', [Admin\ReportController::class, 'index'])->name('reports');
     Route::get('reports/pdf', [Admin\ReportController::class, 'exportPdf'])->name('reports.pdf');
@@ -49,6 +49,7 @@ Route::middleware(['auth', 'role:apoteker'])->prefix('apoteker')->name('apoteker
     Route::post('pos', [Apoteker\PosController::class, 'store'])->name('pos.store');
     Route::get('pos/search-product', [Apoteker\PosController::class, 'searchProduct'])->name('pos.search');
     Route::get('pos/{transaction}', [Apoteker\PosController::class, 'show'])->name('pos.show');
+    Route::delete('pos/{transaction}', [Apoteker\PosController::class, 'destroy'])->name('pos.destroy');
     Route::get('pos/{transaction}/pdf', [Apoteker\PosController::class, 'printPdf'])->name('pos.pdf');
 
     Route::get('products/expired', [Apoteker\ProductController::class, 'expired'])->name('products.expired');
