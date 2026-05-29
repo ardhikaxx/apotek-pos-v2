@@ -62,9 +62,18 @@
                             </span>
                         </td>
                         <td class="text-end pe-4">
-                            <a href="{{ route('apoteker.pos.show', $tx) }}" class="btn btn-sm btn-light border-0">
-                                <i class="fa fa-eye text-muted"></i> Detail
-                            </a>
+                            <div class="d-flex justify-content-end gap-1">
+                                <a href="{{ route('apoteker.pos.show', $tx) }}" class="btn btn-sm btn-light border-0">
+                                    <i class="fa fa-eye text-muted"></i> Detail
+                                </a>
+                                <form action="{{ route('apoteker.pos.destroy', $tx) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus transaksi ini? Stok produk akan dikembalikan.')" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-light border-0">
+                                        <i class="fa fa-trash text-danger"></i> Hapus
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @empty
