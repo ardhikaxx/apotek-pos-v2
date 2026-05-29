@@ -28,8 +28,13 @@
                         <td>Rp {{ number_format($tx->change_amount, 0, ',', '.') }}</td>
                         <td>{{ $tx->transaction_date->format('d/m/Y H:i') }}</td>
                         <td class="d-flex gap-1">
-                            <a href="{{ route('admin.transactions.show', $tx) }}" class="btn btn-sm btn-outline-info"><i class="fa fa-eye"></i></a>
-                            <a href="{{ route('admin.transactions.pdf', $tx) }}" class="btn btn-sm btn-outline-secondary" target="_blank"><i class="fa fa-print"></i></a>
+                            <a href="{{ route('admin.transactions.show', $tx) }}" class="btn btn-sm btn-outline-info" title="Detail"><i class="fa fa-eye"></i></a>
+                            <a href="{{ route('admin.transactions.pdf', $tx) }}" class="btn btn-sm btn-outline-secondary" target="_blank" title="Cetak"><i class="fa fa-print"></i></a>
+                            <form action="{{ route('admin.transactions.destroy', $tx) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus transaksi ini? Stok produk akan dikembalikan.')" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus"><i class="fa fa-trash"></i></button>
+                            </form>
                         </td>
                     </tr>
                     @empty
